@@ -6,5 +6,5 @@ Code of a simple FSM for ADD challenge course ~~in Glasgow College~~
 **DO NOT PLAGIARISM**  
 **可以用于理解代码，但请不要抄袭**  
 # Acknowledgement  
-[Skeleton Code](https://github.com/yuzdoge/digital-circuit-lab-skeleton), thanks to [@yuzdoge](https://github.com/yuzdoge)
+[Skeleton Code](https://github.com/yuzdoge/digital-circuit-lab-skeleton), thanks to [@yuzdoge](https://github.com/yuzdoge)  
 特别鸣谢不知名学长[@yuzdoge](https://github.com/yuzdoge)提供的[代码框架](https://github.com/yuzdoge/digital-circuit-lab-skeleton)

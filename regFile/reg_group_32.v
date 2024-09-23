@@ -1,7 +1,7 @@
 module reg_group_32(q, en, clk, rst, d);
-    input [31:0] q;
+    input [31:0] d;
     input en, clk, rst; // rst == 0 reset 1'b0; 
-    output [31:0] d;
+    output [31:0] q;
 
     genvar i;
     generate

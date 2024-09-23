@@ -1,4 +1,4 @@
-module regFile(clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg,
+module regfile(clock, ctrl_writeEnable, ctrl_reset, ctrl_writeReg,
 ctrl_readRegA, ctrl_readRegB, data_writeReg, data_readRegA,
 data_readRegB
 );
@@ -10,7 +10,7 @@ data_readRegB
 
     /* Write part */
     wire [31:0] writeReg;
-    decoder_5_32 writeDecoder(
+    decoder_5_to_32 writeDecoder(
         .in(ctrl_writeReg), 
         .en(1'b1), //Reserved for potential enable signal 
         .out(writeReg)
@@ -30,14 +30,48 @@ data_readRegB
     generate
         for (i = 0; i < 32; i = i + 1) begin: gen_regFile
             reg_group_32 regFile(
-                .q(data_writeReg), 
+                .d(data_writeReg), 
                 .en(en_Reg[i]), 
-                .clk(clk), 
-                .rst(rst), 
-                .d(regFileOut[i][31:0])
+                .clk(clock), 
+                .rst(ctrl_reset), 
+                .q(regFileOut[i][31:0])
             );
         end
     endgenerate
     
+	 /* Read regFile decoder */
+	 wire [31:0] readReg_A, readReg_B;
+	 decoder_5_to_32 read_decoder_A(
+		.in(ctrl_readRegA),
+		.en(1'b1), // reserved for potential enable signal
+		.out(readReg_A)
+	 );
+	 
+	 decoder_5_to_32 read_decoder_B(
+		.in(ctrl_readRegB),
+		.en(1'b1), // reserved for potential enable signal
+		.out(readReg_B)
+	 );
+	 
+	 /* Tri-state gate for DataA */
+	 generate
+		for (i = 0; i < 32; i = i + 1) begin: gen_tri_32_32_A
+			tri_32 tri_32_32_A(
+				.in(regFileOut[i][31:0]),
+				.z(readReg_A[i]),
+				.out(data_readRegA)
+			);
+		end
+	 endgenerate
+	 
+	 generate
+		for (i = 0; i < 32; i = i + 1) begin: gen_tri_32_32_B
+			tri_32 tri_32_32_B(
+				.in(regFileOut[i][31:0]),
+				.z(readReg_B[i]),
+				.out(data_readRegB)
+			);
+		end
+	 endgenerate
 	 
 endmodule

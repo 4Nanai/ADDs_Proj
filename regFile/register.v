@@ -1,4 +1,4 @@
-module register(q, d, en, clk, rst);
+module register(d, en, clk, rst, q);
 input d, en, clk, rst;
 output reg q;
 

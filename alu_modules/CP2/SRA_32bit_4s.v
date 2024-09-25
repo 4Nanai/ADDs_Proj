@@ -19,7 +19,7 @@ module SRA_32bit_4s(in, s, out);
 	for (i = 0; i < 4; i = i + 1) begin: mux_shift_4
 		mux_2_in_1 mux_shift_LOGICHIGH(
 			.in0(in[31 - i]),
-			.in1(1'b1),
+			.in1(in[31]),
 			.s(s),
 			.out(out[31 - i])
 		);

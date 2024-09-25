@@ -17,7 +17,7 @@ module SRA_32bit_1s(in, s, out);
 	
 	mux_2_in_1 mux_shift_0(
 		.in0(in[31]),
-		.in1(1'b1),
+		.in1(in[31]),
 		.s(s),
 		.out(out[31])
 	);
